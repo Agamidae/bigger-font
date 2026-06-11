@@ -36,5 +36,12 @@ container = {
 			name = "TooltipText"
 			margin = { 20 10 }
 		}
+		
+		text_single = {
+			raw_text = "#i Ctrl+Z to hide this tooltip#!"
+			margin = { 20 5 }
+			margin_bottom = 20
+			using = Font_Size_Small
+		}
 	}
 }
