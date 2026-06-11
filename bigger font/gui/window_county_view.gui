@@ -1,7 +1,8 @@
 ﻿######################################################
 ################### COUNTY VIEW ######################
 ######################################################
-# bui: only made the two windows below movable and remove margin_top 170 = in holding_tracks_view
+# bui: made the two windows below movable and remove margin_top 170 = in holding_tracks_view
+# increased height of the window
 window = {
 	name = "holding_view"
 	widgetid = "holding_view"
@@ -9,7 +10,7 @@ window = {
 	allow_outside = yes
 	movable = yes
 	layer = windows_layer
-	size = { 605 750 }
+	size = { 605 850 } # mod
 
 	state = {
 		name = _show
