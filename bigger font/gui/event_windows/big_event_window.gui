@@ -4,13 +4,14 @@
 
 # in two places:
 # fontsize = 16
-#using = Font_Size_Big # mod
+# using = Font_Size_Big # mod
 
 types BigWindowTypes {
 	type big_event_window = window {
 
 		parentanchor = center
 		widgetanchor = center
+		allow_outside = yes
 
 		size = { 1390 750 }
 
@@ -20,8 +21,13 @@ types BigWindowTypes {
 		datacontext = "[EventWindowData.GetScope.sScheme('scheme')]"
 		datacontext = "[Scheme.GetSchemeType]"
 
-		using = Event_Window_Debug_OptionTooltips
 		using = Event_Window_Debug_EventTools
+		blockoverride "is_event_on_top" {
+			enabled = "[EventWindow.IsOnTop]"
+		}
+		blockoverride "is_event_on_top_close" {
+			trigger_when = "[Not(EventWindow.IsOnTop)]"
+		}
 
 		block "transition" {
 			alpha = 0
@@ -486,8 +492,7 @@ types BigWindowTypes {
 										max_width = 700
 										text = "[EventWindowData.GetDescription]"
 										autoresize = yes
-										# fontsize = 16
-										using = Font_Size_Big # mod
+										fontsize = 16
 
 										margin = { 0 15 }
 										margin_left = 20
@@ -1001,6 +1006,16 @@ types BigWindowTypes {
 			ignoreinvisible = yes
 
 			using = Event_Window_Debug_Info
+		}
+
+		widget = {
+			size = { 0 100% }
+			position = { -50 0 }
+			parentanchor = right
+			allow_outside = yes
+			alwaystransparent = yes
+
+			using = Event_Window_Right_Tooltips
 		}
 	}
 

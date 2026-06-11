@@ -1,7 +1,7 @@
 types ActivityLocaleTypes
 {
 	# from window_activity_locale.gui
-	# increased font size for description
+	# 1 change: increased font size from fontsize = 16 to Font_Size_Big
 	type widget_activity_locale_fullscreen_event = widget {
 		datacontext = "[ActivityLocaleWindow.GetEventWindowInsert( PdxGuiWidget.AccessSelf )]"
 		datacontext = "[EventWindowViewInsert.GetOpenEvent]"
@@ -10,7 +10,12 @@ types ActivityLocaleTypes
 		state = {
 			name = activity_new_event_shown
 			on_start = "[PdxGuiTriggerAllAnimations( 'activity_event_appear' )]"
+			on_finish = "[GetVariableSystem.Set('bottom_tournament', 'yes')]"
+			on_finish = "[GetVariableSystem.Set('hide_qualification', 'yes')]"
+			on_start = "[GetVariableSystem.Clear('skip_video')]"
 		}
+
+		using = Event_Window_Debug_EventTools
 
 		widget = {
 			size = { 100% 100% }
@@ -21,6 +26,7 @@ types ActivityLocaleTypes
 				name = activity_new_event_shown
 				on_start = "[PdxGuiWidget.FindChild( 'event_video' ).GfxVideoControl.Restart]"
 				on_start = "[PdxGuiWidget.FindChild( 'event_transition_video' ).GfxVideoControl.Restart]"
+				on_start = "[GetVariableSystem.Clear('skip_video')]"
 			}
 
 			event_window_background_widget = {
@@ -74,8 +80,8 @@ types ActivityLocaleTypes
 								### SECONDARY ###
 								widget = {
 									parentanchor = bottom|right
-									position = { -580 0 }
-									size = { 400 558 }
+									position = { -300 0 }
+									size = { 400 900 }
 
 									allow_outside = no
 
@@ -83,13 +89,14 @@ types ActivityLocaleTypes
 										name = "portrait_secondary_left"
 										datacontext = "[EventWindowData.GetPortraitCharacter('lower_left_portrait')]"
 										visible = "[And(EventWindowData.HasPortraitCharacter('lower_left_portrait'), EventWindowData.HasPortraitCharacter('right_portrait'))]"
-										parentanchor = center
+										# parentanchor = center
 
-										size = { 500 558 }
+										position = { -100 300 }
+										size = { 500 900 }
 
 										blockoverride "portrait_button"
 										{
-											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('lower_left_portrait', 'camera_event_tournament_left', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('lower_left_portrait', 'camera_event_tournament_left_full', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
 											alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('lower_left_portrait'))]"
 
 											tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('lower_left_portrait')]"
@@ -130,7 +137,7 @@ types ActivityLocaleTypes
 								widget = {
 									parentanchor = bottom|right
 									position = { -300 0 }
-									size = { 400 558 }
+									size = { 400 900 }
 
 									allow_outside = no
 
@@ -138,13 +145,14 @@ types ActivityLocaleTypes
 										name = "portrait_primary_left"
 										datacontext = "[EventWindowData.GetPortraitCharacter('left_portrait')]"
 										visible = "[And(EventWindowData.HasPortraitCharacter('left_portrait'), EventWindowData.HasPortraitCharacter('right_portrait'))]"
-										parentanchor = center
+										# parentanchor = center
 
-										size = { 500 558 }
+										position = { 100 300 }
+										size = { 500 900 }
 
 										blockoverride "portrait_button"
 										{
-											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('left_portrait', 'camera_event_tournament_left', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('left_portrait', 'camera_event_tournament_left_full', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
 											alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('left_portrait'))]"
 
 											tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('left_portrait')]"
@@ -191,8 +199,8 @@ types ActivityLocaleTypes
 								### SECONDARY CHARACTER ###
 								widget = {
 									parentanchor = bottom|left
-									position = { 580 0 }
-									size = { 400 558 }
+									position = { 350 0 }
+									size = { 400 900 }
 
 									allow_outside = no
 
@@ -200,13 +208,14 @@ types ActivityLocaleTypes
 										name = "portrait_secondary_right"
 										datacontext = "[EventWindowData.GetPortraitCharacter('lower_right_portrait')]"
 										visible = "[EventWindowData.HasPortraitCharacter('lower_right_portrait')]"
-										parentanchor = center
+										# parentanchor = center
 
-										size = { 500 558 }
+										position = { 0 300 }
+										size = { 500 900 }
 
 										blockoverride "portrait_button"
 										{
-											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('lower_right_portrait', 'camera_event_tournament_right', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('lower_right_portrait', 'camera_event_tournament_right_full', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
 											alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('lower_right_portrait'))]"
 
 											tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('lower_right_portrait')]"
@@ -247,7 +256,7 @@ types ActivityLocaleTypes
 								widget = {
 									parentanchor = bottom|left
 									position = { 300 0 }
-									size = { 400 558 }
+									size = { 400 900 }
 
 									allow_outside = no
 
@@ -255,13 +264,14 @@ types ActivityLocaleTypes
 										name = "portrait_primary_right"
 										datacontext = "[EventWindowData.GetPortraitCharacter('right_portrait')]"
 										visible = "[EventWindowData.HasPortraitCharacter('right_portrait')]"
-										parentanchor = center
+										# parentanchor = center
 
-										size = { 500 558 }
+										position = { -100 300 }
+										size = { 500 900 }
 
 										blockoverride "portrait_button"
 										{
-											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('right_portrait', 'camera_event_tournament_right', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('right_portrait', 'camera_event_tournament_right_full', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
 											alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('right_portrait'))]"
 
 											tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('right_portrait')]"
@@ -306,14 +316,14 @@ types ActivityLocaleTypes
 							visible = "[And(EventWindowData.HasPortraitCharacter('left_portrait'), Not(EventWindowData.HasPortraitCharacter('right_portrait')))]"
 							datacontext = "[EventWindowData.GetPortraitCharacter('left_portrait')]"
 							size = { 100% 112% }
-							position = { 225 16 }
+							position = { 125 300 }
 							parentanchor = bottom|right
 
 							blockoverride "portrait_button"
 							{
-								portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('left_portrait', 'camera_event_center', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+								portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('left_portrait', 'camera_event_center_full', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
 								alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('left_portrait'))]"
-								size = { 650 558 }
+								size = { 650 900 }
 
 								tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('left_portrait')]"
 								tooltip_offset = { 550 -580 }
@@ -351,12 +361,15 @@ types ActivityLocaleTypes
 			}
 
 			## Event text and options
+
 			hbox = {
 				margin_left = 32
 				margin_right = 32
 				margin_top = 170
-				margin_bottom = 230
 				parentanchor = hcenter
+				# margin_bottom = 250
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
 
 				widget = {
 					name = "characters_spacer_left"
@@ -386,50 +399,45 @@ types ActivityLocaleTypes
 						}
 
 						## Event text
-						scrollbox = {
+						hbox = {
+							name = "event_text_area"
 							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = expanding
+							margin_bottom = 8
 
-							blockoverride "scrollbox_background" { }
-							blockoverride "scrollbox_background_fade" {
+							minimumsize = { 490 -1 }
+							maximumsize = { 490 -1 }
 
-								}
+							text_multi = {
+								name = "description"
+								minimumsize = { 480 -1 }
+								maximumsize = { 480 -1 }
+								autoresize = yes
+								margin = { 16 0 }
+								margin_top = 4
+								margin_bottom = 32
+								text = "[EventWindowData.GetDescription]"
+								# fontsize = 16
+								using = Font_Size_Big
 
-							blockoverride "scrollbox_content" {
+								background = {
+									using = Background_Area_ExtraDark
+									alpha = 0.9
 
-								text_multi = {
-									name = "description"
-									minimumsize = { 500 -1 }
-									maximumsize = { 500 -1 }
-									autoresize = yes
-									margin = { 16 0 }
-									margin_top = 4
+									margin = { 140 16 }
 									margin_bottom = 32
-									text = "[EventWindowData.GetDescription]"
-									# fontsize = 16
-									using = Font_Size_Big # mod
 
-									background = {
-										using = Background_Area_ExtraDark
-										alpha = 0.9
+									modify_texture = {
+										texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_thick.dds"
+										blend_mode = alphamultiply
+									}
 
-										margin = { 140 16 }
-										margin_bottom = 32
-
-										modify_texture = {
-											texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_thick.dds"
-											blend_mode = alphamultiply
-										}
-
-										modify_texture = {
-											texture = "gfx/interface/component_masks/mask_fade_textured_vertical_up.dds"
-											blend_mode = alphamultiply
-										}
+									modify_texture = {
+										texture = "gfx/interface/component_masks/mask_fade_textured_vertical_up.dds"
+										blend_mode = alphamultiply
 									}
 								}
 							}
 						}
-
 
 						flowcontainer = {
 							name = "event_debug_info"
@@ -496,10 +504,19 @@ types ActivityLocaleTypes
 											onmousehierarchyenter = "[EventWindowViewInsert.OnMouseEnterOption( EventOption.Self )]"
 											onmousehierarchyleave = "[EventWindowViewInsert.OnMouseLeaveOption]"
 										}
+										blockoverride "shortcut_format" {
+											default_format = "#medium;glow_color:{0.1,0.1,0.1,1.0}"
+											margin_left = 10
+										}
+										blockoverride "shortcut_size" {
+											size = { 20 20 }
+										}
 									}
 								}
 							}
 						}
+
+						expand = { }
 
 						widget = {
 							name = "bottom_event_spacing"
@@ -616,23 +633,67 @@ types ActivityLocaleTypes
 				expand = {}
 			}
 
-			event_window_transition_widget = {
+			margin_widget = {
+				margin_bottom = 280
+				margin_top = 30
+				size = { 10 100% }
+				alwaystransparent = yes
+				position = { 300 0 }
+				parentanchor = hcenter
+				allow_outside = yes
 
-				block "transition_widget_states"
-				{
-					using = Event_Window_Default_Transition_States
+				widget = {
+					size = { 10 100% }
+					allow_outside = yes
+					blockoverride "clean_event_tooltips_position" {
+						position = { 0 0 }
+						parentanchor = bottom
+						widgetanchor = bottom
+					}
+					blockoverride "clean_flip_tooltips" {
+						righttoleft = yes
+					}
+					blockoverride "tooltip_scroll_height" {
+						max_height = 700
+					}
+
+					using = Event_Window_Right_Tooltips
+				}
+			}
+
+			widget = {
+				size = { 100% 100% }
+				visible = "[Not(GetVariableSystem.Exists('skip_video'))]"
+
+
+				event_window_transition_widget = {
+
+					block "transition_widget_states"
+					{
+						using = Event_Window_Default_Transition_States
+					}
+
+					blockoverride "event_transition_mask_properties"
+					{
+						loop = no
+						restart_on_show = yes
+					}
+
+					blockoverride "event_transition_video_properties"
+					{
+						restart_on_show = yes
+					}
 				}
 
-				blockoverride "event_transition_mask_properties"
-				{
-					loop = no
-					restart_on_show = yes
-				}
-
-				blockoverride "event_transition_video_properties"
-				{
-					restart_on_show = yes
-				}
+				button_standard_clean = {
+					datacontext = "[EventWindowData.GetEventTransitionData]"
+					visible = "[EventWindowData.IsShowingTransition]"
+			        shortcut = close_window
+			        parentanchor = bottom|hcenter
+			        background = { using = Background_Area_Border_Solid }
+			        raw_text = "Skip"
+			        onclick = "[GetVariableSystem.Set('skip_video', 'yes')]"
+			    }
 			}
 		}
 	}

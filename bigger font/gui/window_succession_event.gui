@@ -3,6 +3,10 @@
 ######################################################
 @width = 300
 
+# lots of changes
+# changed a widget to a vbox, window takes 100% of height
+# set max width with @width
+
 window = {
 	name = "succession_event_window"
 	parentanchor = center
@@ -539,8 +543,8 @@ window = {
 									text_label_center = {
 										visible = "[SuccessionEventWindow.GetPlayerHeir.IsValid]"
 										text = "LEGACY_CONTINUE_PLAYING"
-										multiline = yes
-										max_width = 200
+										multiline = yes # mod
+										max_width = 200 # mod
 									}
 
 									vbox_heir = {
@@ -942,7 +946,8 @@ window = {
 window = {
 	name = "succession_select_destiny_window"
 	parentanchor = center
-	size = { 1100 100% }
+	# size = { 1000 760}
+	size = { 1100 100% } # mod
 	layer = windows_layer
 	datacontext = "[GetVariableSystem]"
 
@@ -953,8 +958,10 @@ window = {
 		margin = { 0 50 }
 
 		widget = {
+			# parentanchor = center
+			# size = { 1000 760 }
 			size = { 1100 0 }
-			layoutpolicy_vertical = expanding
+			layoutpolicy_vertical = expanding # mod
 
 			using = Window_Background
 			using = Window_Decoration_Spike
@@ -1004,7 +1011,7 @@ window = {
 					# min_height = 560
 
 					scrollbar_vertical = {
-						using = Scrollbar_Vertical
+						using = Scrollbar_Vertical # mod
 					}
 
 					scrollbar_horizontal = {
@@ -1049,6 +1056,7 @@ window = {
 
 					button_standard_back = {
 						name = "cancel_button"
+						# size = { 220 42 } # mod
 						size = { 180 42 }
 						onclick = "[SuccessionEventWindow.ToggleSelectDestinyOpen]"
 						onclick = "[GetVariableSystem.Clear( 'random_destiny_expanded' )]"
@@ -1167,6 +1175,7 @@ window = {
 
 						button_standard = {
 							name = "random_button"
+							# size = { 220 42 } # mod
 							size = { 300 42 }
 							onclick = "[GetVariableSystem.Toggle( 'random_destiny_expanded' )]"
 							enabled = "[SuccessionEventWindow.HasRandomDestinyCharacters]"
@@ -1179,7 +1188,7 @@ window = {
 								layoutpolicy_horizontal = expanding
 								text = "SUCCESSION_EVENT_WINDOW_RANDOM_DESTINY"
 								default_format = "#clickable"
-								align = center|nobaseline
+								align = center|nobaseline # mod
 							}
 
 							button_icon = {
@@ -1543,6 +1552,7 @@ types Legacy
 		}
 	}
 
+	# mod
 	type widget_destiny_character = vbox {
 		allow_outside = yes
 		spacing = -40
@@ -1644,7 +1654,7 @@ types Legacy
 
 				vbox = {
 					spacing = -5
-					
+
 					hbox_character_view_name_age_health = {
 						blockoverride "name_width"
 						{

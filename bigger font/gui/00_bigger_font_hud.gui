@@ -1,5 +1,6 @@
 types Bigger {
 	# moved the numbers up and reduced spacing
+	# same changes in many places:
 	# replace: margin_top = -2 > margin_top = -7 # mod
 	# spacing = -6 > spacing = -8 # mod
 
@@ -624,7 +625,7 @@ types Bigger {
 					widget = {
 						name = "influence"
 						datacontext = "[InGameTopbar.GetInfluenceItem]"
-						visible = "[GetPlayer.GetGovernment.HasRule( 'administrative' )]"
+						visible = "[GetPlayer.GetGovernment.HasGovernmentFlag( 'government_has_influence' )]"
 						size = { 112 70 }
 
 						widget = {

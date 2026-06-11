@@ -1,7 +1,7 @@
 types RoyalCourtTypes
 {
 	# using = Font_Size_Big # mod
-	
+
 	# Requires an EventWindowViewInsert data context
 	type widget_court_event = widget {
 		allow_outside = yes
@@ -152,6 +152,7 @@ types RoyalCourtTypes
 								autoresize = yes
 								margin = { 10 20 }
 								text = "[EventWindowData.GetDescription]"
+								# fontsize = 16
 								using = Font_Size_Big # mod
 							}
 						}
@@ -193,12 +194,19 @@ types RoyalCourtTypes
 						addcolumn = 510
 						addrow = 42
 						datamodel = "[EventWindowData.GetOptions]"
+						blockoverride "shortcut_tip" {
+							tooltip = "EVENT_NUMBER_TIP_SHORT"
+						}
 
 						item = {
 							button_eventoption = {
 								blockoverride "onmousehierarchy_callbacks" {
 									onmousehierarchyenter = "[EventWindowViewInsert.OnMouseEnterOption(EventOption.Self)]"
 									onmousehierarchyleave = "[EventWindowViewInsert.OnMouseLeaveOption]"
+								}
+								blockoverride "eventoption_down" {}
+								blockoverride "button_event_preview" {
+									visible = no
 								}
 							}
 						}

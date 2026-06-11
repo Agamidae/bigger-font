@@ -4,8 +4,11 @@ window = {
 	#scale = "[ScaleToFitElementInside('(int32)1920', '(int32)1080')]"
 	movable = no
 
-	layer = top
+	# 1 change: fontsize = 16
+	# using = Font_Size_Big # mod
 
+	layer = top
+	using = Event_Window_Debug_EventTools
 	datacontext = "[EventWindow.AccessEventWindowData]"
 
 	widget = {
@@ -318,6 +321,14 @@ window = {
 					}
 				}
 			}
+		}
+
+		widget = {
+			size = { 0 100% }
+			position = { 550 0 }
+			allow_outside = yes
+			alwaystransparent = yes
+			using = Event_Window_Right_Tooltips
 		}
 	}
 
