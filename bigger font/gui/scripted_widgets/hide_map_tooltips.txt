@@ -1,0 +1,1 @@
+﻿gui/hide_map_tooltips.gui = hide_tooltips

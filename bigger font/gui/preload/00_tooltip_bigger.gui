@@ -1,0 +1,11 @@
+template DefaultTooltipText
+{
+	#using = FontNormal
+	default_format = "#medium"
+	align = left
+	autoresize = yes
+	multiline = yes
+	fontsize = 26 # mod
+
+	max_width = 500
+}

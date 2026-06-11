@@ -1,0 +1,40 @@
+container = {
+	name = "ProvinceTooltipWidget"
+	filter_mouse = all
+	alwaystransparent = yes
+
+	flowcontainer = {
+		position = { 25 25 }
+		direction = vertical
+
+		# mod
+		state = {
+			name = hide
+			trigger_when = "[GetVariableSystem.Exists('hide_tooltips')]"
+			position = { 10000 0 }
+		}
+		state = {
+			name = reset
+			trigger_when = "[Not(GetVariableSystem.Exists('hide_tooltips'))]"
+			position = { 25 25 }
+		}
+
+		widget = {
+			name = "background"
+			using = DefaultTooltipBackground
+			size = { 100% 100% }
+			alwaystransparent = yes
+
+			blockoverride "bg_color" {
+				tintcolor = { 1.0 1 1.0 0.8 }
+			}
+			blockoverride "progress" {}
+		}
+
+		textbox = {
+			using = DefaultTooltipText
+			name = "TooltipText"
+			margin = { 20 10 }
+		}
+	}
+}

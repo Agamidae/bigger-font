@@ -1,0 +1,15 @@
+textformatting = {
+
+	format = {
+		name = tooltip_heading
+		format = "medium;bold;size:24"
+	}
+	format = {
+		name = DIE1
+		format = "size:20"
+	}
+	format = {
+		name = DIE2
+		format = "italic;size:22"
+	}
+}

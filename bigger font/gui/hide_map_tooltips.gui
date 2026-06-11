@@ -1,0 +1,5 @@
+button = {
+  name = hide_tooltips
+  onclick = "[GetVariableSystem.Toggle('hide_tooltips')]"
+  shortcut = undo
+}

@@ -1,0 +1,639 @@
+types ActivityLocaleTypes
+{
+	# from window_activity_locale.gui
+	# increased font size for description
+	type widget_activity_locale_fullscreen_event = widget {
+		datacontext = "[ActivityLocaleWindow.GetEventWindowInsert( PdxGuiWidget.AccessSelf )]"
+		datacontext = "[EventWindowViewInsert.GetOpenEvent]"
+		visible = "[EventWindowViewInsert.HasOpenEvent]"
+
+		state = {
+			name = activity_new_event_shown
+			on_start = "[PdxGuiTriggerAllAnimations( 'activity_event_appear' )]"
+		}
+
+		widget = {
+			size = { 100% 100% }
+			alwaystransparent = no
+			parentanchor = hcenter|top
+
+			state = {
+				name = activity_new_event_shown
+				on_start = "[PdxGuiWidget.FindChild( 'event_video' ).GfxVideoControl.Restart]"
+				on_start = "[PdxGuiWidget.FindChild( 'event_transition_video' ).GfxVideoControl.Restart]"
+			}
+
+			event_window_background_widget = {
+				blockoverride "event_mask" {}
+			}
+
+			widget = {
+				size = { 100% 100% }
+				position = { 0 -220 }
+				parentanchor = vcenter
+
+				block "fullscreen_event_attributes"
+				{
+
+				}
+
+				## Characters
+				vbox = {
+					widget = {
+						name = "text_spacer"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = expanding
+						layoutstretchfactor_horizontal = 45
+					}
+
+					## Characters
+					widget = {
+						name = "characters"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = expanding
+						layoutstretchfactor_horizontal = 55
+						alpha = 0
+
+						state = {
+							name = appear
+							trigger_on_create = yes
+							delay = 0.5
+							using = Animation_Curve_Default
+							alpha = 1
+							duration = 0.5
+						}
+
+						## Multiple characters
+						hbox = {
+							### LEFT CHARACTERS ###
+							widget = {
+								name = "portraits_left"
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+
+								### SECONDARY ###
+								widget = {
+									parentanchor = bottom|right
+									position = { -580 0 }
+									size = { 400 558 }
+
+									allow_outside = no
+
+									portrait_event_tournament = {
+										name = "portrait_secondary_left"
+										datacontext = "[EventWindowData.GetPortraitCharacter('lower_left_portrait')]"
+										visible = "[And(EventWindowData.HasPortraitCharacter('lower_left_portrait'), EventWindowData.HasPortraitCharacter('right_portrait'))]"
+										parentanchor = center
+
+										size = { 500 558 }
+
+										blockoverride "portrait_button"
+										{
+											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('lower_left_portrait', 'camera_event_tournament_left', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+											alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('lower_left_portrait'))]"
+
+											tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('lower_left_portrait')]"
+											tooltip_offset = { 400 -900 }
+											using = tooltip_below
+										}
+
+										blockoverride "highlight_visible"
+										{
+											visible = "[Or(Character.IsHovered, EventWindowData.IsCharacterHighlighted( EventWindowData.GetPortraitCharacter('lower_left_portrait') ))]"
+											position = { -0 0 }
+										}
+
+										blockoverride "grayscale" {}
+
+										highlight_icon = {
+											name = "prison_bars"
+											visible = "[And(Character.IsImprisoned, Not(EventWindowData.ShouldHideImprisonment('lower_left_portrait')))]"
+											visible_at_creation = no
+											size = { 280 500 }
+											parentanchor = bottom|left
+											effectname = "NoHighlight"
+											spriteType = corneredTiled
+											texture_density = 1.5
+											texture = "gfx/portraits/portrait_prison_body.dds"
+
+											modify_texture = {
+												name = "mask"
+												texture =  "gfx/portraits/portrait_mask_event.dds"
+												spriteType = Corneredstretched
+												blend_mode = alphamultiply
+											}
+										}
+									}
+								}
+
+								### PRIMARY ###
+								widget = {
+									parentanchor = bottom|right
+									position = { -300 0 }
+									size = { 400 558 }
+
+									allow_outside = no
+
+									portrait_event_tournament = {
+										name = "portrait_primary_left"
+										datacontext = "[EventWindowData.GetPortraitCharacter('left_portrait')]"
+										visible = "[And(EventWindowData.HasPortraitCharacter('left_portrait'), EventWindowData.HasPortraitCharacter('right_portrait'))]"
+										parentanchor = center
+
+										size = { 500 558 }
+
+										blockoverride "portrait_button"
+										{
+											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('left_portrait', 'camera_event_tournament_left', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+											alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('left_portrait'))]"
+
+											tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('left_portrait')]"
+											tooltip_offset = { 540 -900 }
+											using = tooltip_below
+										}
+
+										blockoverride "highlight_visible"
+										{
+											visible = "[Or(Character.IsHovered, EventWindowData.IsCharacterHighlighted( EventWindowData.GetPortraitCharacter('left_portrait') ))]"
+											position = { -0 0 }
+										}
+
+										blockoverride "grayscale" {}
+
+										highlight_icon = {
+											name = "prison_bars"
+											visible = "[And(Character.IsImprisoned, Not(EventWindowData.ShouldHideImprisonment('left_portrait')))]"
+											visible_at_creation = no
+											size = { 280 500 }
+											parentanchor = bottom|left
+											effectname = "NoHighlight"
+											spriteType = corneredTiled
+											texture_density = 1.5
+											texture = "gfx/portraits/portrait_prison_body.dds"
+
+											modify_texture = {
+												name = "mask"
+												texture =  "gfx/portraits/portrait_mask_event.dds"
+												spriteType = Corneredstretched
+												blend_mode = alphamultiply
+											}
+										}
+									}
+								}
+							}
+
+							### RIGHT CHARACTERS ###
+							widget = {
+								name = "portraits_right"
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+
+								### SECONDARY CHARACTER ###
+								widget = {
+									parentanchor = bottom|left
+									position = { 580 0 }
+									size = { 400 558 }
+
+									allow_outside = no
+
+									portrait_event_tournament = {
+										name = "portrait_secondary_right"
+										datacontext = "[EventWindowData.GetPortraitCharacter('lower_right_portrait')]"
+										visible = "[EventWindowData.HasPortraitCharacter('lower_right_portrait')]"
+										parentanchor = center
+
+										size = { 500 558 }
+
+										blockoverride "portrait_button"
+										{
+											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('lower_right_portrait', 'camera_event_tournament_right', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+											alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('lower_right_portrait'))]"
+
+											tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('lower_right_portrait')]"
+											using = tooltip_below
+											tooltip_offset = { -400 -900 }
+										}
+
+										blockoverride "highlight_visible"
+										{
+											visible = "[Or(Character.IsHovered, EventWindowData.IsCharacterHighlighted( EventWindowData.GetPortraitCharacter('lower_right_portrait') ))]"
+											position = { 0 0 }
+										}
+
+										blockoverride "grayscale" {}
+
+										highlight_icon = {
+											name = "prison_bars"
+											visible_at_creation = no
+											visible = "[And(Character.IsImprisoned, Not(EventWindowData.ShouldHideImprisonment('lower_right_portrait')))]"
+											size = { 285 500 }
+											parentanchor = bottom|right
+											effectname = "NoHighlight"
+											spriteType = corneredTiled
+											texture_density = 1.5
+											texture = "gfx/portraits/portrait_prison_body.dds"
+
+											modify_texture = {
+												name = "mask"
+												texture =  "gfx/portraits/portrait_mask_event.dds"
+												spriteType = Corneredstretched
+												blend_mode = alphamultiply
+											}
+										}
+									}
+								}
+
+								### PRIMARY CHARACTER ###
+								widget = {
+									parentanchor = bottom|left
+									position = { 300 0 }
+									size = { 400 558 }
+
+									allow_outside = no
+
+									portrait_event_tournament = {
+										name = "portrait_primary_right"
+										datacontext = "[EventWindowData.GetPortraitCharacter('right_portrait')]"
+										visible = "[EventWindowData.HasPortraitCharacter('right_portrait')]"
+										parentanchor = center
+
+										size = { 500 558 }
+
+										blockoverride "portrait_button"
+										{
+											portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('right_portrait', 'camera_event_tournament_right', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+											alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('right_portrait'))]"
+
+											tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('right_portrait')]"
+											using = tooltip_below
+											tooltip_offset = { -400 -900 }
+										}
+
+										blockoverride "highlight_visible"
+										{
+											visible = "[Or(Character.IsHovered, EventWindowData.IsCharacterHighlighted( EventWindowData.GetPortraitCharacter('right_portrait') ))]"
+											position = { 0 0 }
+										}
+
+										blockoverride "grayscale" {}
+
+										highlight_icon = {
+											name = "prison_bars"
+											visible_at_creation = no
+											visible = "[And(Character.IsImprisoned, Not(EventWindowData.ShouldHideImprisonment('right_portrait')))]"
+											size = { 285 500 }
+											parentanchor = bottom|right
+											effectname = "NoHighlight"
+											spriteType = corneredTiled
+											texture_density = 1.5
+											texture = "gfx/portraits/portrait_prison_body.dds"
+
+											modify_texture = {
+												name = "mask"
+												texture =  "gfx/portraits/portrait_mask_event.dds"
+												spriteType = Corneredstretched
+												blend_mode = alphamultiply
+											}
+										}
+									}
+								}
+							}
+						}
+
+						## Single character
+						portrait_event = {
+							name = "portrait_center"
+							visible = "[And(EventWindowData.HasPortraitCharacter('left_portrait'), Not(EventWindowData.HasPortraitCharacter('right_portrait')))]"
+							datacontext = "[EventWindowData.GetPortraitCharacter('left_portrait')]"
+							size = { 100% 112% }
+							position = { 225 16 }
+							parentanchor = bottom|right
+
+							blockoverride "portrait_button"
+							{
+								portrait_texture = "[EventWindowData.GetAnimatedEventPortraitTexture('left_portrait', 'camera_event_center', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+								alwaystransparent = "[Not(EventWindowData.ShouldShowPortraitInfo('left_portrait'))]"
+								size = { 650 558 }
+
+								tooltip_visible = "[EventWindowData.ShouldShowPortraitInfo('left_portrait')]"
+								tooltip_offset = { 550 -580 }
+								using = tooltip_below
+							}
+
+							blockoverride "highlight_visible"
+							{
+								visible = "[Or(Character.IsHovered, EventWindowData.IsCharacterHighlighted( EventWindowData.GetPortraitCharacter('left_portrait') ))]"
+							}
+
+							blockoverride "grayscale" {}
+
+							highlight_icon = {
+								name = "prison_bars"
+								visible = "[And(Character.IsImprisoned, Not(EventWindowData.ShouldHideImprisonment('left_portrait')))]"
+								visible_at_creation = no
+								size = { 300 500 }
+								parentanchor = bottom|hcenter
+								effectname = "NoHighlight"
+								spriteType = corneredTiled
+								texture_density = 1.5
+								texture = "gfx/portraits/portrait_prison_body.dds"
+
+								modify_texture = {
+									name = "mask"
+									texture =  "gfx/portraits/portrait_mask_event.dds"
+									spriteType = Corneredstretched
+									blend_mode = alphamultiply
+								}
+							}
+						}
+					}
+				}
+			}
+
+			## Event text and options
+			hbox = {
+				margin_left = 32
+				margin_right = 32
+				margin_top = 170
+				margin_bottom = 230
+				parentanchor = hcenter
+
+				widget = {
+					name = "characters_spacer_left"
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					layoutstretchfactor_horizontal = 55
+				}
+
+				widget = {
+					name = "text"
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					layoutstretchfactor_horizontal = 45
+
+					vbox = {
+						name = "description_and_options"
+						layoutpolicy_vertical = expanding
+						alpha = 0
+
+						state = {
+							name = appear
+							trigger_on_create = yes
+							delay = 0.2
+							using = Animation_Curve_Default
+							alpha = 1
+							duration = 1.5
+						}
+
+						## Event text
+						scrollbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+
+							blockoverride "scrollbox_background" { }
+							blockoverride "scrollbox_background_fade" {
+
+								}
+
+							blockoverride "scrollbox_content" {
+
+								text_multi = {
+									name = "description"
+									minimumsize = { 500 -1 }
+									maximumsize = { 500 -1 }
+									autoresize = yes
+									margin = { 16 0 }
+									margin_top = 4
+									margin_bottom = 32
+									text = "[EventWindowData.GetDescription]"
+									# fontsize = 16
+									using = Font_Size_Big # mod
+
+									background = {
+										using = Background_Area_ExtraDark
+										alpha = 0.9
+
+										margin = { 140 16 }
+										margin_bottom = 32
+
+										modify_texture = {
+											texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_thick.dds"
+											blend_mode = alphamultiply
+										}
+
+										modify_texture = {
+											texture = "gfx/interface/component_masks/mask_fade_textured_vertical_up.dds"
+											blend_mode = alphamultiply
+										}
+									}
+								}
+							}
+						}
+
+
+						flowcontainer = {
+							name = "event_debug_info"
+							visible = "[InDebugMode]"
+							ignoreinvisible = yes
+
+							using = Event_Window_Debug_Info
+
+							blockoverride "event_reset_onclick"
+							{
+								onclick = "[EventWindowViewInsert.Reload]"
+							}
+
+							background = {
+								using = Background_Area_Dark
+
+								margin = { 16 16 }
+								alpha = 0.9
+							}
+						}
+
+						## Event options
+						vbox = {
+							name = "event_options_area"
+							allow_outside = yes
+							layoutpolicy_horizontal = expanding
+							ignoreinvisible = yes
+							spacing = 5
+							margin_bottom = 5
+
+							hbox = {
+								spacing = 5
+
+								hbox = {
+									name = "dynamic_birth_name"
+									margin = { 5 0 }
+								}
+							}
+
+							vbox = {
+								name = "custom_widgets_container"
+								layoutpolicy_horizontal = expanding
+
+								state = {
+									trigger_on_create = yes
+									name = appear_test
+									delay = 0.8
+									using = Animation_Curve_Default
+									alpha = 1
+									duration = 0.6
+								}
+							}
+
+							fixedgridbox = {
+								name = "option_grid"
+								addcolumn = 500
+								addrow = 42
+								datamodel = "[EventWindowData.GetOptions]"
+
+								item = {
+									button_eventoption = {
+										blockoverride "onmousehierarchy_callbacks"
+										{
+											onmousehierarchyenter = "[EventWindowViewInsert.OnMouseEnterOption( EventOption.Self )]"
+											onmousehierarchyleave = "[EventWindowViewInsert.OnMouseLeaveOption]"
+										}
+									}
+								}
+							}
+						}
+
+						widget = {
+							name = "bottom_event_spacing"
+							size = { 0 35 }
+							layoutpolicy_horizontal = expanding
+						}
+					}
+				}
+
+				widget = {
+					name = "characters_spacer_right"
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					layoutstretchfactor_horizontal = 55
+				}
+			}
+
+			## Header
+			vbox = {
+				margin_top = 94
+
+				hbox = {
+					spacing = 8
+
+					background = {
+						using = Background_Area_Solid
+
+						margin = { 250 -8 }
+
+						modify_texture = {
+							texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_thick.dds"
+							blend_mode = alphamultiply
+						}
+					}
+
+					icon = {
+						name = "theme_icon"
+						size = { 74 74 }
+						texture = "[EventWindowData.GetThemeIcon]"
+
+						modify_texture = {
+							name = overlay
+							texture = "gfx/interface/component_effects/effect_blue_shine.dds"
+							blend_mode = colordodge
+							translate_uv = {0.6 0}
+						}
+
+						state = {
+							name = right
+							next = left
+
+							duration = 2
+							bezier = { .8 .18 .96 .05}
+
+							modify_texture = {
+								name = overlay
+								translate_uv = {-0.6 0}
+							}
+						}
+
+						state = {
+							name = left
+							next = right
+
+							duration = 0.0
+							delay = 5
+
+
+							modify_texture = {
+								name = overlay
+								translate_uv = {0.6 0}
+							}
+						}
+
+						state = {
+							trigger_on_create = yes
+							name = start
+							next = right
+
+							duration = 0.0
+
+							modify_texture = {
+								name = overlay
+								translate_uv = {0.6 0}
+							}
+						}
+					}
+
+					text_single = {
+						name = "title"
+						fontsize = 29
+						fontsize_min = 16
+						text = "[EventWindowData.GetTitle]"
+						default_format = "#high;weak_glow"
+						using = Font_Type_Flavor
+						max_width = 950
+						align = nobaseline
+
+						alpha = 0
+
+						state = {
+							name = start
+							trigger_on_create = yes
+							delay = 0.2
+							using = Animation_Curve_Default
+							alpha = 1
+							duration = 0.5
+						}
+					}
+
+					expand = {}
+				}
+
+				expand = {}
+			}
+
+			event_window_transition_widget = {
+
+				block "transition_widget_states"
+				{
+					using = Event_Window_Default_Transition_States
+				}
+
+				blockoverride "event_transition_mask_properties"
+				{
+					loop = no
+					restart_on_show = yes
+				}
+
+				blockoverride "event_transition_video_properties"
+				{
+					restart_on_show = yes
+				}
+			}
+		}
+	}
+}
